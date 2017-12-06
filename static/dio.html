@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Semáforo</title>
+
+<link rel="stylesheet" type="text/css" href="res/switch.css">
+<link rel="stylesheet" type="text/css" href="res/led.css">
+<style type="text/css" >
+	@font-face{
+		font-family: lcd;
+		src:url(res/VT323-Regular.ttf)
+	}
+	table, th, td{
+		border: 1px solid black;
+		border-color: #385412;
+		font-family: lcd;
+		font-size: 25px;
+		color: #ff0000
+		
+	}
+	input[type="checkbox"] {
+		transform: scale(3);
+		padding: 5px;
+		margin: 20px
+	}
+	body{
+		background-color: #2b2c1f
+	}
+	
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="res/dioControls_1.js"></script>
+<script>
+
+	id=['Boton'];
+	inp=['VerdeV','AmaV','RojoV','VerdeP','RojoP'];
+	$(document).ready(function(){
+		
+		var setOut=new toggleSwitch();
+		setOut.arrayOfToggles('t',1);
+		doTable(setOut,'Arduino Digital Outputs',id,onclickTable);
+		getStatus(setOut,'o');
+		
+		var readIn=new inputLed();
+		readIn.arrayOfLeds('to',5);
+		diTable(readIn,'Arduino Digital Inputs',inp);
+		getStatus(readIn,'i');
+		
+		var w1=$('#to').width();
+		var w2=$('#t').width();
+		if(w2>w1){
+			$('#to').width(w2);
+			$('#t').width(w2);
+			$('#scroll').width(w2);
+		}
+		else{
+			$('#to').width(w1);
+			$('#t').width(w1);
+			$('#scroll').width(w1);
+		}
+		
+	
+	});
+</script>
+
+</head>
+<body >
+	<h1 style="color: blue; font-family: lcd">ARDUINO INPUT/OUTPUT WEB SERVER</h1>
+	<div><table id="to" style="text-align: center" ></table></div>
+	<div><table id="t" style="text-align: center; margin-top: 20px" ></table></div>
+
+	<marquee id="scroll" style="font-family: lcd;margin-top: 20px; font-size: 50px; color:red" behavior="alternate" direction="left">
+		PryectoRedes
+	</marquee>
+</body>
+
+</html>
